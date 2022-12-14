@@ -35,13 +35,15 @@ class UserController extends Controller
         return $results;
     }
     public function giveattendance(Request $request){
-        DB::insert('', [1, 'Dayle']);
+        DB::insert('insert into courseattendance(courseid,studentid) values(?,?)', [$request->courseid, $request->studentid]);
     }
-    public function getstudentattendance(){
-
+    public function getstudentattendance(Request $request){
+        $results = DB::select('select COUNT(*) from courseattendance where courseid=? and studentid=? and attendance=1', [$request->courseid,$request->studentid]);
+        return $results;
     }
     public function getcourseattendance(){
-
+        $results = DB::select('select s.name,count(*) from courseattendance c,students s where c.studentid=s.id and c.courseid=? group by c.studentid', [$request->courseid]);
+        return $results;
     }
 
 }

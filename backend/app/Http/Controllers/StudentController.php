@@ -17,7 +17,7 @@ class StudentController extends Controller
     }
 
     public function get($id){
-        $student = DB::table("students")->where("id","=",$id);
+        $student = Student::find($id);
         return $student;
     }
 
